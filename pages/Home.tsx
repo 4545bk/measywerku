@@ -98,7 +98,7 @@ export const Home = () => {
                   <span className="h-px w-8 bg-amber-500" />
                   <p className="text-amber-600 font-bold text-sm uppercase tracking-[0.3em]">Premier Sales Consultant</p>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-serif font-bold text-slate-900 mb-4 leading-tight">Mesay Werku</h1>
+                <h1 className="text-5xl md:text-7xl font-serif font-bold text-slate-900 mb-4 leading-tight">Mesay Worku</h1>
                 <p className="text-slate-400 font-medium text-xl">RealEstate Sales Consultant & Property Strategist</p>
               </div>
 

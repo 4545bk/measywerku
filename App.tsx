@@ -95,7 +95,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           </div>
           <div className="flex items-center space-x-6">
             <div className="flex flex-col text-right">
-              <span className="text-sm font-bold text-slate-900">Mesay Werku</span>
+              <span className="text-sm font-bold text-slate-900">Mesay Worku</span>
               <span className="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Administrator</span>
             </div>
             <div className="w-12 h-12 bg-slate-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">

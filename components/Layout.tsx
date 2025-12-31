@@ -90,7 +90,7 @@ const Footer = () => {
               <span className="text-xl font-bold text-slate-900">Ghion Homes<span className="text-amber-600">.</span></span>
             </Link>
             <p className="text-slate-400 leading-relaxed max-w-sm mb-8 font-medium">
-              Mesay Werku - Premium real estate consultancy in Addis Ababa. We connect you with luxury residences and high-value investment opportunities.
+              Mesay Worku - Premium real estate consultancy in Addis Ababa. We connect you with luxury residences and high-value investment opportunities.
             </p>
             <div className="flex space-x-4">
               {[PhoneCall, Instagram, Facebook, Twitter].map((Icon, i) => (

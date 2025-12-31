@@ -344,7 +344,7 @@ export const PropertyDetail = () => {
                     />
                   </div>
                   <div>
-                    <div className="text-base font-bold text-slate-900">Mesay Werku</div>
+                    <div className="text-base font-bold text-slate-900">Mesay Worku</div>
                     <div className="text-[10px] text-amber-600 uppercase font-bold tracking-[0.2em]">Lead Consultant</div>
                     <div className="flex items-center mt-1">
                       {[1, 2, 3, 4, 5].map(s => <Star key={s} className="w-3 h-3 text-amber-500 fill-amber-500" />)}
