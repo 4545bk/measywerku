@@ -166,74 +166,147 @@ export const PropertyManagement = () => {
 
             {/* Property List */}
             <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden">
-                <table className="w-full">
-                    <thead className="bg-slate-50 border-b border-slate-200">
-                        <tr>
-                            <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Property</th>
-                            <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Price</th>
-                            <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Type</th>
-                            <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Location</th>
-                            <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Details</th>
-                            <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
-                            <th className="text-right px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                        {filteredProperties.map((property) => (
-                            <tr key={property._id} className="hover:bg-slate-50 transition-colors">
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center space-x-3">
-                                        <img
-                                            src={property.images.find(img => img.isPrimary)?.url || property.images[0]?.url}
-                                            alt={property.title}
-                                            className="w-16 h-16 rounded-xl object-cover"
-                                        />
-                                        <div>
-                                            <div className="font-bold text-slate-900">{property.title}</div>
-                                            {property.featured && (
-                                                <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">Featured</span>
-                                            )}
+                {/* Desktop Table View */}
+                <div className="hidden lg:block overflow-x-auto">
+                    <table className="w-full">
+                        <thead className="bg-slate-50 border-b border-slate-200">
+                            <tr>
+                                <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Property</th>
+                                <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Price</th>
+                                <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Type</th>
+                                <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Location</th>
+                                <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Details</th>
+                                <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
+                                <th className="text-right px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                            {filteredProperties.map((property) => (
+                                <tr key={property._id} className="hover:bg-slate-50 transition-colors">
+                                    <td className="px-6 py-4">
+                                        <div className="flex items-center space-x-3">
+                                            <img
+                                                src={property.images.find(img => img.isPrimary)?.url || property.images[0]?.url}
+                                                alt={property.title}
+                                                className="w-16 h-16 rounded-xl object-cover"
+                                            />
+                                            <div>
+                                                <div className="font-bold text-slate-900">{property.title}</div>
+                                                {property.featured && (
+                                                    <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">Featured</span>
+                                                )}
+                                            </div>
                                         </div>
+                                    </td>
+                                    <td className="px-6 py-4 font-bold text-slate-900">{formatPrice(property.price)}</td>
+                                    <td className="px-6 py-4">
+                                        <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                            {property.type}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 text-slate-600">{property.locationId?.name || 'N/A'}</td>
+                                    <td className="px-6 py-4 text-sm text-slate-500">
+                                        {property.bedrooms} bed • {property.bathrooms} bath • {property.size} sqm
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${property.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700'
+                                            }`}>
+                                            {property.status}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex items-center justify-end space-x-2">
+                                            <button
+                                                onClick={() => handleEdit(property)}
+                                                className="p-2 hover:bg-blue-50 rounded-lg transition-colors text-blue-600"
+                                                title="Edit property"
+                                            >
+                                                <Pencil className="w-4 h-4" />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(property._id)}
+                                                className="p-2 hover:bg-red-50 rounded-lg transition-colors text-red-600"
+                                                title="Delete property"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="lg:hidden divide-y divide-slate-100">
+                    {filteredProperties.map((property) => (
+                        <div key={property._id} className="p-4 hover:bg-slate-50 transition-colors">
+                            {/* Property Image and Title */}
+                            <div className="flex items-start space-x-3 mb-3">
+                                <img
+                                    src={property.images.find(img => img.isPrimary)?.url || property.images[0]?.url}
+                                    alt={property.title}
+                                    className="w-20 h-20 rounded-xl object-cover flex-shrink-0"
+                                />
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="font-bold text-slate-900 text-sm mb-1 truncate">{property.title}</h3>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        {property.featured && (
+                                            <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">Featured</span>
+                                        )}
+                                        <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${property.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700'}`}>
+                                            {property.status}
+                                        </span>
                                     </div>
-                                </td>
-                                <td className="px-6 py-4 font-bold text-slate-900">{formatPrice(property.price)}</td>
-                                <td className="px-6 py-4">
-                                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm font-semibold">
+                                </div>
+                            </div>
+
+                            {/* Property Details Grid */}
+                            <div className="grid grid-cols-2 gap-3 mb-3">
+                                <div>
+                                    <div className="text-xs text-slate-500 font-semibold mb-1">Price</div>
+                                    <div className="font-bold text-slate-900 text-sm">{formatPrice(property.price)}</div>
+                                </div>
+                                <div>
+                                    <div className="text-xs text-slate-500 font-semibold mb-1">Type</div>
+                                    <span className="bg-slate-100 text-slate-700 px-2 py-1 rounded-full text-xs font-semibold inline-block">
                                         {property.type}
                                     </span>
-                                </td>
-                                <td className="px-6 py-4 text-slate-600">{property.locationId?.name || 'N/A'}</td>
-                                <td className="px-6 py-4 text-sm text-slate-500">
-                                    {property.bedrooms} bed • {property.bathrooms} bath • {property.size} sqm
-                                </td>
-                                <td className="px-6 py-4">
-                                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${property.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-700'
-                                        }`}>
-                                        {property.status}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center justify-end space-x-2">
-                                        <button
-                                            onClick={() => handleEdit(property)}
-                                            className="p-2 hover:bg-blue-50 rounded-lg transition-colors text-blue-600"
-                                            title="Edit property"
-                                        >
-                                            <Pencil className="w-4 h-4" />
-                                        </button>
-                                        <button
-                                            onClick={() => handleDelete(property._id)}
-                                            className="p-2 hover:bg-red-50 rounded-lg transition-colors text-red-600"
-                                            title="Delete property"
-                                        >
-                                            <Trash2 className="w-4 h-4" />
-                                        </button>
+                                </div>
+                                <div>
+                                    <div className="text-xs text-slate-500 font-semibold mb-1">Location</div>
+                                    <div className="text-sm text-slate-600 truncate">{property.locationId?.name || 'N/A'}</div>
+                                </div>
+                                <div>
+                                    <div className="text-xs text-slate-500 font-semibold mb-1">Details</div>
+                                    <div className="text-xs text-slate-600">
+                                        {property.bedrooms} bed • {property.bathrooms} bath
                                     </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                    <div className="text-xs text-slate-600">{property.size} sqm</div>
+                                </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex items-center gap-2 pt-3 border-t border-slate-100">
+                                <button
+                                    onClick={() => handleEdit(property)}
+                                    className="flex-1 flex items-center justify-center space-x-2 px-4 py-2.5 bg-blue-50 text-blue-600 rounded-xl font-semibold text-sm hover:bg-blue-100 transition-colors"
+                                >
+                                    <Pencil className="w-4 h-4" />
+                                    <span>Edit</span>
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(property._id)}
+                                    className="flex-1 flex items-center justify-center space-x-2 px-4 py-2.5 bg-red-50 text-red-600 rounded-xl font-semibold text-sm hover:bg-red-100 transition-colors"
+                                >
+                                    <Trash2 className="w-4 h-4" />
+                                    <span>Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
 
                 {filteredProperties.length === 0 && (
                     <div className="text-center py-12 text-slate-400">
