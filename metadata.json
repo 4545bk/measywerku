@@ -1,0 +1,7 @@
+{
+  "name": "Addis Luxury Estates",
+  "description": "A high-end real estate platform for Addis Ababa featuring property management, location-based SEO pages, and an advanced admin analytics dashboard.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
