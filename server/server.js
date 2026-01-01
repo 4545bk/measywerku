@@ -73,11 +73,12 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Start server
+// Start server only if not in serverless environment
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`
 ╔═══════════════════════════════════════╗
 ║                                       ║
 ║     🏠 GHION HOMES API SERVER READY 🏠    ║
@@ -88,12 +89,14 @@ app.listen(PORT, () => {
 ║                                       ║
 ╚═══════════════════════════════════════╝
   `);
-});
+    });
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
-    console.error('Unhandled Rejection:', err);
-    process.exit(1);
-});
+    // Handle unhandled promise rejections
+    process.on('unhandledRejection', (err) => {
+        console.error('Unhandled Rejection:', err);
+        process.exit(1);
+    });
+}
 
 export default app;
+
