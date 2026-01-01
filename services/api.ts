@@ -1,5 +1,5 @@
-// API base URL - Hardcoded for reliability
-const API_URL = 'http://localhost:5000/api';
+// API base URL - Use environment variable or fallback to /api for production
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 // Helper function to get auth token
 const getAuthToken = () => {
